@@ -1,0 +1,53 @@
+{
+  "name": "file-state-monitor",
+  "version": "1.0.0",
+  "description": "A slightly different breed of file monitoring for NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel source",
+    "docs": "docma -c ./docma.config.json",
+    "lint": "eslint ./lib ./test",
+    "test": "NODE_ENV=test nyc mocha",
+    "coveralls": "NODE_ENVE=test nyc report --reporter=text-lcov | coveralls"
+  },
+  "keywords": [
+    "file",
+    "watcher",
+    "monitor",
+    "state",
+    "incremental"
+  ],
+  "author": "Jan Vennemann <jan.vennemann@gmx.net",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "fs-extra": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.2",
+    "coveralls": "^2.13.1",
+    "docma": "^1.5.1",
+    "eslint": "^4.3.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "istanbul": "^0.4.5",
+    "jsdoc-babel": "^0.3.0",
+    "mocha": "^3.4.2",
+    "mock-fs": "^4.4.1",
+    "nyc": "^11.0.3",
+    "sinon": "^2.3.8"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
+}

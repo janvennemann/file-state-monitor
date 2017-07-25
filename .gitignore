@@ -1,0 +1,10 @@
+# logs
+*.log
+npm-debug.log*
+
+# node dependencies
+node_modules
+
+# test output
+coverage
+.nyc_output

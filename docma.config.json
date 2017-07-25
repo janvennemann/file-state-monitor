@@ -1,0 +1,38 @@
+{
+	"src": [{
+		"readme": "./Readme.md"
+	}, "lib/**/*.js"],
+	"dest": "docs",
+	"jsdoc": {
+		"plugins": ["node_modules/jsdoc-babel"]
+	},
+	"app": {
+		"title": "File Monitor",
+		"entrance": "content:readme"
+	},
+	"template": {
+		"options": {
+			"navItems": [{
+				"label": "Home",
+				"href": "/",
+				"iconClass": "ico-md ico-bookmark"
+			}, {
+				"label": "API",
+				"href": "?api",
+				"iconClass": "ico-md"
+			}, {
+				"label": "Download",
+				"iconClass": "ico-md ico-download",
+				"items": [{
+					"label": "<code>npm i file-state-monitor -S</code>",
+					"href": "https://npmjs.com/file-state-monitor"
+				}]
+			}, {
+				"label": "GitHub",
+				"href": "https://github.com/janvennemann/file-state-monitor",
+				"target": "_blank",
+				"iconClass": "ico-md ico-github"
+			}]
+		}
+	}
+}

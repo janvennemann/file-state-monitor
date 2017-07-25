@@ -1,0 +1,35 @@
+
+<html><head></head><body><h1 id="file-state-monitor">file-state-monitor</h1>
+<hr />
+<blockquote>
+<p>A different breed of file monitoring for NodeJS. Detect file changes between script runs.</p>
+</blockquote>
+<h2 id="description">Description</h2>
+<p>Completely customizable monitoring for files that detects changes between two script runs. The state of all monitored files will be stored and compared to the current state on the next run to detect changes.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Install with npm</p>
+<pre><code>npm i file-state-monitor --save
+</code></pre><p>require and use it in your code:</p>
+<pre><code class="lang-javascript">const FileMonitor = require('file-state-monitor').FileMonitor;
+const FileStates = require('file-state-monitor').States
+
+// Create a new file monitor and specificy the state change detection you want to use
+let monitor = new FileMonitor(FileStates.LastModifiedState);
+let stateFile = '/path/to/states.json';
+monitor.load(stateFile);
+monitor.monitorPath('/path/to/watch');
+let changedFiles = monitor.getChangedFiles();
+monitor.write(stateFile)
+</code></pre>
+<p>On the first run this will give you a <code>Map</code> of all files under the given path with a state of <code>created</code>. If you run the same script again you will get a list of <code>changed</code> or <code>deleted</code> files or. When no files changed an empty <code>Map</code> will be returned.</p>
+<h2 id="change-detection-strategies">Change detection strategies</h2>
+<p>This library uses special file state classes to let you choose which method you want to use to detect file changes. By subclassing the <code>BaseFileState</code> you can also define your own change detection strategy, giving you complete control about what files you consider as changed. File state implementations that come bundled with the library:</p>
+<ul>
+<li><code>LastModifiedState</code>: Uses the last modified timestamp to detect if a file changed</li>
+<li><code>SizeState</code>: Uses the file size to detect if a file changed</li>
+<li><code>ContentHashState</code>: Computes a SHA-1 hash of the file's content and uses that hash to detect if a file changed<ul>
+<li><code>CombinedState</code>: Uses all of the above checks in series, marking a file changed as soon as the first check returns true. Starts with the inexpensive checks for modification time and file size, and only then does the expensive content hash check.</li>
+</ul>
+</li>
+</ul>
+</body></html>
