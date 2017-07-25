@@ -8,7 +8,9 @@
 	},
 	"app": {
 		"title": "File Monitor",
-		"entrance": "content:readme"
+		"entrance": "content:readme",
+		"server": "github",
+		"base": "/file-state-monitor"
 	},
 	"template": {
 		"options": {
