@@ -90,7 +90,9 @@ describe('FileMonitor', () => {
       let loaded = monitor.load(files.stateFilename);
       expect(loaded).to.be.true;
       expect(monitor._loadedFiles.size).to.be.equal(1);
-      expect(monitor._loadedFiles).to.have.key(files.emptyTestFilename);
+      expect(monitor._loadedFiles).to.be.a('map').that.has.all.keys(files.emptyTestFilename);
+      let loadedState = monitor._loadedFiles.get(files.emptyTestFilename);
+      expect(loadedState.path).to.be.equal(files.emptyTestFilename);
     });
 
     it('should return false on corrupted state data', () => {
@@ -132,11 +134,9 @@ describe('FileMonitor', () => {
   describe('updateFileState', () => {
     it('should update state maps for new file', () => {
       monitor.updateFileState(files.emptyTestFilename);
-      expect(monitor._changedFiles.size).to.be.equal(1);
-      expect(monitor._changedFiles).to.have.key(files.emptyTestFilename);
+      expect(monitor._changedFiles).to.be.a('map').that.has.all.keys(files.emptyTestFilename);
       expect(monitor._changedFiles.get(files.emptyTestFilename)).to.be.equal(FileMonitor.FILE_STATUS_CREATED);
-      expect(monitor._processedFiles.size).to.be.equal(1);
-      expect(monitor._processedFiles).to.have.key(files.emptyTestFilename);
+      expect(monitor._processedFiles).to.be.a('map').that.has.all.keys(files.emptyTestFilename);
       expect(monitor._processedFiles.get(files.emptyTestFilename)).to.be.instanceof(MockState);
     });
 
@@ -148,11 +148,9 @@ describe('FileMonitor', () => {
       fs.writeFileSync(files.emptyTestFilename, 'test');
       monitor.updateFileState(files.emptyTestFilename);
       expect(isDifferentThanStub.called).to.be.true;
-      expect(monitor._changedFiles.size).to.be.equal(1);
-      expect(monitor._changedFiles).to.have.key(files.emptyTestFilename);
+      expect(monitor._changedFiles).to.be.a('map').that.has.all.keys(files.emptyTestFilename);
       expect(monitor._changedFiles.get(files.emptyTestFilename)).to.be.equal(FileMonitor.FILE_STATUS_CHANGED);
-      expect(monitor._processedFiles.size).to.be.equal(1);
-      expect(monitor._processedFiles).to.have.key(files.emptyTestFilename);
+      expect(monitor._processedFiles).to.be.a('map').that.has.all.keys(files.emptyTestFilename);
       expect(monitor._processedFiles.get(files.emptyTestFilename)).to.be.instanceof(MockState);
       MockState.prototype.isDifferentThan.restore();
     });
@@ -165,9 +163,8 @@ describe('FileMonitor', () => {
       fs.writeFileSync(files.emptyTestFilename, 'test');
       monitor.updateFileState(files.emptyTestFilename);
       expect(isDifferentThanStub.called).to.be.true;
-      expect(monitor._changedFiles.size).to.be.equal(0);
-      expect(monitor._processedFiles.size).to.be.equal(1);
-      expect(monitor._processedFiles).to.have.key(files.emptyTestFilename);
+      expect(monitor._changedFiles).to.be.a('map').that.is.empty;
+      expect(monitor._processedFiles).to.be.a('map').that.has.all.keys(files.emptyTestFilename);
       expect(monitor._processedFiles.get(files.emptyTestFilename)).to.be.instanceof(MockState);
       MockState.prototype.isDifferentThan.restore();
     });
@@ -209,8 +206,7 @@ describe('FileMonitor', () => {
       monitor._changedFiles.set(createdFile, FileMonitor.FILE_STATUS_CREATED);
       monitor._changedFiles.set(changedFile, FileMonitor.FILE_STATUS_CHANGED);
       let changedFiles = monitor.getChangedFiles();
-      expect(changedFiles.size).to.be.equal(3);
-      expect(changedFiles).to.have.keys([createdFile, changedFile, deletedFile]);
+      expect(changedFiles).to.be.a('map').that.has.all.keys(createdFile, changedFile, deletedFile);
       expect(changedFiles.get(createdFile)).to.be.equal(FileMonitor.FILE_STATUS_CREATED);
       expect(changedFiles.get(changedFile)).to.be.equal(FileMonitor.FILE_STATUS_CHANGED);
       expect(changedFiles.get(deletedFile)).to.be.equal(FileMonitor.FILE_STATUS_DELETED);
