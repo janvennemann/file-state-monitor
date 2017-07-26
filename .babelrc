@@ -8,7 +8,7 @@
   ],
   "env": {
     "test": {
-      "plugins": [ "istanbul", "transform-runtime" ]
+      "plugins": [ "istanbul" ]
     }
   }
 }
