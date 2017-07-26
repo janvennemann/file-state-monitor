@@ -1,5 +1,8 @@
 # file-state-monitor
 
+[![Build Status](https://travis-ci.org/janvennemann/file-state-monitor.svg?branch=master)](https://travis-ci.org/janvennemann/file-state-monitor)
+[![Coverage Status](https://coveralls.io/repos/github/janvennemann/file-state-monitor/badge.svg?branch=develop)](https://coveralls.io/github/janvennemann/file-state-monitor?branch=develop)
+
 > A slightly different breed of file monitoring for NodeJS. Detect file changes between script runs.
 
 ## Description
