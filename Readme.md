@@ -7,7 +7,7 @@
 
 ## Description
 
-Completely customizable monitoring for files that detects changes between two script runs. The state of all monitored files will be stored and compared to the current state on the next run to detect changes.
+Completely customizable file monitoring that detects changes between two script runs. The state of all monitored files will be stored and compared to the current state on the next run to detect changes.
 
 ## Getting started
 
@@ -19,9 +19,9 @@ require and use it in your code:
 
 ```javascript
 const FileMonitor = require('file-state-monitor').FileMonitor;
-const FileStates = require('file-state-monitor').States
+const LastModifiedState = require('file-state-monitor').LastModifiedState
 
-let monitor = new FileMonitor(FileStates.LastModifiedState);
+let monitor = new FileMonitor(LastModifiedState);
 let stateFile = '/path/to/states.json';
 monitor.load(stateFile);
 monitor.monitorPath('/path/to/watch');
@@ -31,9 +31,9 @@ monitor.write(stateFile);
 
 On the first run this will give you a `Map` of all files under the given path with a state of `created`. If you run the script again you will get a list of `changed` or `deleted` files. When no files changed an empty `Map` will be returned.
 
-The API is pretty much self explanatory. You first create a new `FileMonitor` and pass one of the available [#change-detection-strategies](change detection strategies). After that `load()` the previous state from disk and add directories or files you want to monitor with `monitorPath()`. Calling this will compare the files with their previous state and you can get a list of changed files with `getChangedFiles()`. To persist the state back to disk simply call `write()` on the file monitor instance.
+The API is pretty much self explanatory. You first create a new `FileMonitor` and pass one of the available [change detection strategies](#change-detection-strategies). After that `load()` the previous state from disk and add directories or files you want to monitor with `monitorPath()`. Calling this will compare the files with their previous state and you can get a list of changed files with `getChangedFiles()`. To persist the state back to disk simply call `write()` on the file monitor instance.
 
-Visit the GitHub Pages for a complete [https://janvennemann.github.io/file-state-monitor/?api](API documentation).
+Visit https://janvennemann.github.io/file-state-monitor/?api for a complete API documentation.
 
 ## Change detection strategies
 
