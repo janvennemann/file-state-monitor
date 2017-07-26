@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import fs from 'fs';
+import path from 'path';
 import mock from 'mock-fs';
 import sinon from 'sinon';
 import { FileMonitor, BaseFileState } from '../lib/index';
@@ -122,9 +123,9 @@ describe('FileMonitor', () => {
     it('should call updateFileState for all files in a directory', () => {
       sinon.spy(monitor, 'updateFileState');
       monitor.monitorPath(files.testDirectory);
-      expect(monitor.updateFileState.firstCall.calledWith('testDir/file1.data')).to.be.true;
-      expect(monitor.updateFileState.secondCall.calledWith('testDir/file2.data')).to.be.true;
-      expect(monitor.updateFileState.thirdCall.calledWith('testDir/subdir/file3.data')).to.be.true;
+      expect(monitor.updateFileState.firstCall.calledWith(`testDir${path.sep}file1.data`)).to.be.true;
+      expect(monitor.updateFileState.secondCall.calledWith(`testDir${path.sep}file2.data`)).to.be.true;
+      expect(monitor.updateFileState.thirdCall.calledWith(`testDir${path.sep}subdir${path.sep}file3.data`)).to.be.true;
     });
   });
 
