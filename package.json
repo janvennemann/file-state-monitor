@@ -2,6 +2,12 @@
   "name": "file-state-monitor",
   "version": "1.0.0",
   "description": "A slightly different breed of file monitoring for NodeJS",
+  "author": "Jan Vennemann <jan.vennemann@gmx.net",
+  "repository": "janvennemann/file-state-monitor",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "main": "index.js",
   "scripts": {
     "build": "babel source",
@@ -17,14 +23,14 @@
     "state",
     "incremental"
   ],
-  "author": "Jan Vennemann <jan.vennemann@gmx.net",
-  "license": "Apache 2.0",
   "dependencies": {
+    "babel-runtime": "^6.23.0",
     "fs-extra": "^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-istanbul": "^4.1.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
     "chai": "^4.0.2",
