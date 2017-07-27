@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import mock from 'mock-fs';
 import sinon from 'sinon';
-import { CombinedState } from '../lib/states/index';
+import { SmartState } from '../lib/states';
 
-describe('CombinedState', () => {
+describe('SmartState', () => {
   let lastModifiedDate = new Date('2017-07-04T00:00:00Z');
   let lastModifiedDateInMilliseconds = lastModifiedDate.getTime();
   let testFilename = 'test.txt';
@@ -26,7 +26,7 @@ describe('CombinedState', () => {
 
   describe('constructor', () => {
     it('should read lastModified and size from file if only path is given', () => {
-      let state = new CombinedState({
+      let state = new SmartState({
         path: testFilename
       });
       expect(state.path).to.be.equal(testFilename);
@@ -36,7 +36,7 @@ describe('CombinedState', () => {
     });
 
     it('should assign passed values to properties', () => {
-      let state = new CombinedState({
+      let state = new SmartState({
         path: testFilename,
         lastModified: lastModifiedDateInMilliseconds,
         size: testContent.length,
@@ -51,7 +51,7 @@ describe('CombinedState', () => {
   describe('computeSha1', function () {
     it('should compute SHA-1 for file content', () => {
       let expectedHash = 'c2ed55283b7e9050c77b97064fed220afaea3bf7';
-      let state = new CombinedState({
+      let state = new SmartState({
         path: testFilename
       });
       expect(state.computeSha1()).to.be.equal(expectedHash);
@@ -59,7 +59,7 @@ describe('CombinedState', () => {
 
     it('should only compute SHA-1 on demand', () => {
       let expectedHash = 'c2ed55283b7e9050c77b97064fed220afaea3bf7';
-      let state = new CombinedState({
+      let state = new SmartState({
         path: testFilename
       });
       let spy = sinon.spy(state, 'computeSha1');
@@ -76,11 +76,11 @@ describe('CombinedState', () => {
     changedLastModifiedDate.setUTCSeconds(1);
 
     it('should throw error if comparing different files', () => {
-      let state1 = new CombinedState({
+      let state1 = new SmartState({
         path: testFilename,
         lastModified: lastModifiedDateInMilliseconds
       });
-      let state2 = new CombinedState({
+      let state2 = new SmartState({
         path: 'other.txt',
         lastModified: lastModifiedDateInMilliseconds
       });
@@ -90,11 +90,11 @@ describe('CombinedState', () => {
     });
 
     it('should return false if modification time is the same', () => {
-      let state1 = new CombinedState({
+      let state1 = new SmartState({
         path: testFilename,
         lastModified: lastModifiedDateInMilliseconds
       });
-      let state2 = new CombinedState({
+      let state2 = new SmartState({
         path: testFilename,
         lastModified: lastModifiedDateInMilliseconds
       });
@@ -102,12 +102,12 @@ describe('CombinedState', () => {
     });
 
     it('should return true if file was modified and is different size', () => {
-      let state1 = new CombinedState({
+      let state1 = new SmartState({
         path: testFilename,
         lastModified: lastModifiedDateInMilliseconds,
         size: 1
       });
-      let state2 = new CombinedState({
+      let state2 = new SmartState({
         path: testFilename,
         lastModified: changedLastModifiedDate.getTime(),
         size: 2
@@ -116,13 +116,13 @@ describe('CombinedState', () => {
     });
 
     it('should return true if file was modified, is same size but has different content hash', () => {
-      let state1 = new CombinedState({
+      let state1 = new SmartState({
         path: testFilename,
         lastModified: lastModifiedDateInMilliseconds,
         size: 1,
         sha1: '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8' // SHA-1 of 'a'
       });
-      let state2 = new CombinedState({
+      let state2 = new SmartState({
         path: testFilename,
         lastModified: changedLastModifiedDate.getTime(),
         size: 1,
@@ -140,7 +140,7 @@ describe('CombinedState', () => {
         size: testContent.length,
         sha1: testContentHash
       };
-      let state = new CombinedState({path: testFilename});
+      let state = new SmartState({path: testFilename});
       expect(state.toJson()).to.be.deep.equal(stateData);
     });
   });
