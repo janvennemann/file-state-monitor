@@ -1,7 +1,9 @@
 # file-state-monitor
 
-[![Build Status](https://travis-ci.org/janvennemann/file-state-monitor.svg?branch=master)](https://travis-ci.org/janvennemann/file-state-monitor)
+[![Travis Build Status](https://travis-ci.org/janvennemann/file-state-monitor.svg?branch=master)](https://travis-ci.org/janvennemann/file-state-monitor)
+[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/p5gakno7oj276abs?svg=true)](https://ci.appveyor.com/project/janvennemann/file-state-monitor)
 [![Coverage Status](https://coveralls.io/repos/github/janvennemann/file-state-monitor/badge.svg?branch=develop)](https://coveralls.io/github/janvennemann/file-state-monitor?branch=develop)
+[![Dependencies](https://david-dm.org/janvennemann/file-state-monitor.svg)](https://david-dm.org/janvennemann/file-state-monitor)
 
 > Completely customizable file monitoring using states, allowing file changes to be detected between script runs.
 
