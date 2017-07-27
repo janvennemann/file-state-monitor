@@ -1,0 +1,17 @@
+# ES6 sources
+lib
+
+# Docs, test and coverage directories
+.nyc_output
+coverage
+docs
+test
+
+# CI tools
+appveyor.yml
+.travis.yml
+
+# Other config files (Linters, Babel etc)
+.babelrc
+.eslintrc.yml
+docma.config.json
