@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import mock from 'mock-fs';
 import sinon from 'sinon';
-import { FileMonitor, BaseFileState } from '../lib/index';
+import { FileMonitor, BaseFileState } from '../lib';
 
 describe('FileMonitor', () => {
   let files = {
