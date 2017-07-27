@@ -3,11 +3,11 @@
 [![Build Status](https://travis-ci.org/janvennemann/file-state-monitor.svg?branch=master)](https://travis-ci.org/janvennemann/file-state-monitor)
 [![Coverage Status](https://coveralls.io/repos/github/janvennemann/file-state-monitor/badge.svg?branch=develop)](https://coveralls.io/github/janvennemann/file-state-monitor?branch=develop)
 
-> A slightly different breed of file monitoring for NodeJS. Detect file changes between script runs.
+> Completely customizable file monitoring using states, allowing file changes to be detected between script runs.
 
 ## Description
 
-Completely customizable file monitoring that detects changes between two script runs. The state of all monitored files will be stored and compared to the current state on the next run to detect changes.
+A slightly different breed of file monitoring for NodeJS. The state of all monitored files will be stored and compared to the current state on the next run to detect changes. It is heavily inspired by the file change detection used by [Gradle](https://gradle.org/) for incremental task runs.
 
 ## Getting started
 
@@ -43,3 +43,7 @@ This library uses special file state classes to let you choose which method you 
 * `SizeState`: Uses the file size to detect if a file changed
 * `ContentHashState`: Computes a SHA-1 hash of the file's content and uses that hash to detect if a file changed
 * `CombinedState`: Uses all of the above checks in series, marking a file changed as soon as the first check returns true. Starts with the inexpensive checks for modification time and file size, and only then does the expensive content hash check.
+
+### Write your own state
+
+Need a more sophisticated check other than only checking file modification time, size or content hash? No problem, just create you own state class that extends from [BaseFileState](https://janvennemann.github.io/file-state-monitor/?api#BaseFileState). For a proper implementation you are required to at least define your own `isDifferentThan` and `toJson` methods. Everything else is up to you. Take a look at the [bundles states](/lib/states) to get an idea of how it works.
