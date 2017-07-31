@@ -9,7 +9,7 @@
 
 ## Description
 
-A slightly different breed of file monitoring for NodeJS. The state of all monitored files will be stored and compared to the current state on the next run to detect changes. It is heavily inspired by the file change detection used by [Gradle](https://gradle.org/) for incremental task runs.
+A slightly different breed of file monitoring for NodeJS. The state of all monitored files will be stored and compared to the current state on the next run to detect changes. It is heavily inspired by the file change detection formerly used by the [Android Gradle Plugin](https://android.googlesource.com/platform/tools/build/) for incremental task runs.
 
 ## Getting started
 
