@@ -38,7 +38,6 @@
     "docma": "^1.5.1",
     "eslint": "^4.3.0",
     "eslint-plugin-mocha": "^4.11.0",
-    "istanbul": "^0.4.5",
     "jsdoc-babel": "^0.3.0",
     "mocha": "^3.4.2",
     "mock-fs": "^4.4.1",
