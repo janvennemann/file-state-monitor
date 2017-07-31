@@ -71,7 +71,7 @@ describe('BaseFileState', () => {
       expect(() => {
         let state = new BaseFileState({path: testFilename});
         state.toJson();
-      }).to.throw('Override toJson to return the serialized file state that will be saved to disk.');
+      }).to.throw('Override toJson to return the serializable file state that will be saved to disk.');
     });
   });
 
