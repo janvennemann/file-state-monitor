@@ -1,7 +1,7 @@
 {
   "name": "file-state-monitor",
   "version": "1.0.0",
-  "description": "A slightly different breed of file monitoring for NodeJS",
+  "description": "Completely customizable file monitoring using states",
   "author": "Jan Vennemann <jan.vennemann@gmx.net",
   "repository": "janvennemann/file-state-monitor",
   "license": "Apache-2.0",
