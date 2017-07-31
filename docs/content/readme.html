@@ -1,35 +1,40 @@
 
 <html><head></head><body><h1 id="file-state-monitor">file-state-monitor</h1>
 <hr />
+<p><a href="https://travis-ci.org/janvennemann/file-state-monitor"><img src="https://travis-ci.org/janvennemann/file-state-monitor.svg?branch=master" alt="Travis Build Status"></a>
+<a href="https://ci.appveyor.com/project/janvennemann/file-state-monitor"><img src="https://ci.appveyor.com/api/projects/status/p5gakno7oj276abs?svg=true" alt="Appveyor Build status"></a>
+<a href="https://coveralls.io/github/janvennemann/file-state-monitor?branch=develop"><img src="https://coveralls.io/repos/github/janvennemann/file-state-monitor/badge.svg?branch=develop" alt="Coverage Status"></a>
+<a href="https://david-dm.org/janvennemann/file-state-monitor"><img src="https://david-dm.org/janvennemann/file-state-monitor.svg" alt="Dependencies"></a></p>
 <blockquote>
-<p>A different breed of file monitoring for NodeJS. Detect file changes between script runs.</p>
+<p>Completely customizable file monitoring using states, allowing file changes to be detected between script runs.</p>
 </blockquote>
 <h2 id="description">Description</h2>
-<p>Completely customizable monitoring for files that detects changes between two script runs. The state of all monitored files will be stored and compared to the current state on the next run to detect changes.</p>
+<p>A slightly different breed of file monitoring for NodeJS. The state of all monitored files will be stored and compared to the current state on the next run to detect changes. It is heavily inspired by the file change detection formerly used by the <a href="https://android.googlesource.com/platform/tools/build/">Android Gradle Plugin</a> for incremental task runs.</p>
 <h2 id="getting-started">Getting started</h2>
 <p>Install with npm</p>
-<pre><code>npm i file-state-monitor --save
-</code></pre><p>require and use it in your code:</p>
+<p><code>npm i file-state-monitor --save</code></p>
+<p>require and use it in your code:</p>
 <pre><code class="lang-javascript">const FileMonitor = require('file-state-monitor').FileMonitor;
-const FileStates = require('file-state-monitor').States
+const LastModifiedState = require('file-state-monitor').LastModifiedState
 
-// Create a new file monitor and specificy the state change detection you want to use
-let monitor = new FileMonitor(FileStates.LastModifiedState);
+let monitor = new FileMonitor(LastModifiedState);
 let stateFile = '/path/to/states.json';
-monitor.load(stateFile);
+let loaded = monitor.load(stateFile);
 monitor.monitorPath('/path/to/watch');
 let changedFiles = monitor.getChangedFiles();
-monitor.write(stateFile)
+monitor.write(stateFile);
 </code></pre>
-<p>On the first run this will give you a <code>Map</code> of all files under the given path with a state of <code>created</code>. If you run the same script again you will get a list of <code>changed</code> or <code>deleted</code> files or. When no files changed an empty <code>Map</code> will be returned.</p>
+<p>On the first run this will give you a <code>Map</code> of all files under the given path with a state of <code>created</code>. If you run the script again you will get a list of <code>changed</code> or <code>deleted</code> files. When no files changed an empty <code>Map</code> will be returned.</p>
+<p>The API is pretty much self explanatory. You first create a new <code>FileMonitor</code> and pass one of the available <a href="#change-detection-strategies">change detection strategies</a>. After that <code>load()</code> the previous state from disk and add directories or files you want to monitor with <code>monitorPath()</code>. Calling this will compare the files with their previous state and you can get a list of changed files with <code>getChangedFiles()</code>. To persist the state back to disk simply call <code>write()</code> on the file monitor instance.</p>
+<p>Visit <a href="https://janvennemann.github.io/file-state-monitor/?api">https://janvennemann.github.io/file-state-monitor/?api</a> for a complete API documentation.</p>
 <h2 id="change-detection-strategies">Change detection strategies</h2>
 <p>This library uses special file state classes to let you choose which method you want to use to detect file changes. By subclassing the <code>BaseFileState</code> you can also define your own change detection strategy, giving you complete control about what files you consider as changed. File state implementations that come bundled with the library:</p>
 <ul>
 <li><code>LastModifiedState</code>: Uses the last modified timestamp to detect if a file changed</li>
 <li><code>SizeState</code>: Uses the file size to detect if a file changed</li>
-<li><code>ContentHashState</code>: Computes a SHA-1 hash of the file's content and uses that hash to detect if a file changed<ul>
+<li><code>ContentHashState</code>: Computes a SHA-1 hash of the file's content and uses that hash to detect if a file changed</li>
 <li><code>CombinedState</code>: Uses all of the above checks in series, marking a file changed as soon as the first check returns true. Starts with the inexpensive checks for modification time and file size, and only then does the expensive content hash check.</li>
 </ul>
-</li>
-</ul>
+<h3 id="write-your-own-state">Write your own state</h3>
+<p>Need a more sophisticated check other than only checking file modification time, size or content hash? No problem, just create you own state class that extends from <a href="https://janvennemann.github.io/file-state-monitor/?api#BaseFileState">BaseFileState</a>. For a proper implementation you are required to at least define your own <code>isDifferentThan</code> and <code>toJson</code> methods. Everything else is up to you. Take a look at the <a href="/lib/states">bundles states</a> to get an idea of how it works.</p>
 </body></html>
