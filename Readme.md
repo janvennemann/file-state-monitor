@@ -25,7 +25,7 @@ const LastModifiedState = require('file-state-monitor').LastModifiedState
 
 let monitor = new FileMonitor(LastModifiedState);
 let stateFile = '/path/to/states.json';
-monitor.load(stateFile);
+let loaded = monitor.load(stateFile);
 monitor.monitorPath('/path/to/watch');
 let changedFiles = monitor.getChangedFiles();
 monitor.write(stateFile);
