@@ -21,7 +21,7 @@
 			}, {
 				"label": "API",
 				"href": "?api",
-				"iconClass": "ico-md"
+				"iconClass": "ico-md ico-code"
 			}, {
 				"label": "Download",
 				"iconClass": "ico-md ico-download",

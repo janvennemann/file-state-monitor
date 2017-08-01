@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import mock from 'mock-fs';
-import { BaseFileState } from '../lib/states/index';
+import { BaseFileState } from '../lib/states';
 
 describe('BaseFileState', () => {
   let testFilename = 'test.txt';
@@ -71,7 +71,7 @@ describe('BaseFileState', () => {
       expect(() => {
         let state = new BaseFileState({path: testFilename});
         state.toJson();
-      }).to.throw('Override toJson to return the serialized file state that will be saved to disk.');
+      }).to.throw('Override toJson to return the serializable file state that will be saved to disk.');
     });
   });
 
