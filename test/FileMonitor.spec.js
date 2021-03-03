@@ -10,7 +10,8 @@ describe('FileMonitor', () => {
     stateFilename: 'state.json',
     corruptedStateFilename: 'corruptedState.json',
     emptyTestFilename: 'empty.data',
-    testDirectory: 'testDir'
+    symlinkTestFilename: 'symlink.data',
+    testDirectory: 'testDir',
   };
   let monitor;
   class MockState extends BaseFileState {
@@ -34,6 +35,7 @@ describe('FileMonitor', () => {
       }),
       [files.corruptedStateFilename]: '{{',
       [files.emptyTestFilename]: '',
+      [files.symlinkTestFilename]: mock.symlink({ path: files.emptyTestFilename }),
       [files.testDirectory]: {
         'file1.data': '',
         'file2.data': '',
@@ -119,7 +121,13 @@ describe('FileMonitor', () => {
     it('should call updateFileState for single file', () => {
       sinon.spy(monitor, 'updateFileState');
       monitor.monitorPath(files.emptyTestFilename);
-      expect(monitor.updateFileState.calledWith(files.emptyTestFilename));
+      expect(monitor.updateFileState.calledWith(files.emptyTestFilename)).to.be.true;
+    });
+
+    it('should call updateFileState for symlinked file', () => {
+      sinon.spy(monitor, 'updateFileState');
+      monitor.monitorPath(files.symlinkTestFilename);
+      expect(monitor.updateFileState.calledWith(files.symlinkTestFilename)).to.be.true;
     });
 
     it('should call updateFileState for all files in a directory', () => {

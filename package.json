@@ -1,12 +1,12 @@
 {
   "name": "file-state-monitor",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Completely customizable file monitoring using states",
   "author": "Jan Vennemann <jan.vennemann@gmx.net",
   "repository": "janvennemann/file-state-monitor",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 10.0"
   },
   "main": "dist/index.js",
   "scripts": {
@@ -26,29 +26,29 @@
     "incremental"
   ],
   "dependencies": {
-    "fs-extra": "^4.0.0"
+    "fs-extra": "^9.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-plugin-istanbul": "^4.1.4",
-    "babel-preset-env": "^1.6.0",
-    "babel-register": "^6.24.1",
-    "chai": "^4.0.2",
-    "coveralls": "^2.13.1",
-    "cross-env": "^5.0.1",
-    "docma": "^1.5.1",
-    "eslint": "^4.3.0",
-    "eslint-plugin-mocha": "^4.11.0",
-    "jsdoc-babel": "^0.3.0",
-    "mocha": "^3.4.2",
-    "mock-fs": "^4.4.1",
-    "nyc": "^11.0.3",
-    "sinon": "^2.3.8"
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.0",
+    "@babel/preset-env": "^7.13.0",
+    "@babel/register": "^7.13.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "chai": "^4.3.1",
+    "coveralls": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "docma": "^3.2.2",
+    "eslint": "^7.21.0",
+    "eslint-plugin-mocha": "^8.0.0",
+    "jsdoc-babel": "^0.5.0",
+    "mocha": "^8.3.0",
+    "mock-fs": "^4.13.0",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.4"
   },
   "nyc": {
     "require": [
-      "babel-register"
+      "@babel/register"
     ],
     "reporter": [
       "lcov",
